@@ -1,3 +1,3 @@
-import { UsersSchema } from './UsersSchema.js';
+import { StudentsSchema } from './StudentsSchema.js';
 
-export { UsersSchema };
+export { StudentsSchema };

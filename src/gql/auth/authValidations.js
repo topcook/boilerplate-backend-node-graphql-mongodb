@@ -8,65 +8,65 @@ import { globalVariablesConfig } from '../../config/appConfig.js';
  */
 export const authValidations = {
 	/**
-	 * Check if the maximum limit of users has been reached. If limit is reached, it throws an error.
-	 * @param {number} numberOfCurrentlyUsersRegistered 	- The number of users currently registered in the service
+	 * Check if the maximum limit of students has been reached. If limit is reached, it throws an error.
+	 * @param {number} numberOfCurrentlyStudentsRegistered 	- The number of students currently registered in the service
 	 */
-	ensureLimitOfUsersIsNotReached: (numberOfCurrentlyUsersRegistered) => {
-		const usersLimit = globalVariablesConfig.limitOfUsersRegistered;
-		if (usersLimit === 0) {
+	ensureLimitOfStudentsIsNotReached: (numberOfCurrentlyStudentsRegistered) => {
+		const studentsLimit = globalVariablesConfig.limitOfStudentsRegistered;
+		if (studentsLimit === 0) {
 			return;
 		}
 
-		if (numberOfCurrentlyUsersRegistered >= usersLimit) {
-			throw new ValidationError('The maximum number of users allowed has been reached. You must contact the administrator of the service in order to register');
+		if (numberOfCurrentlyStudentsRegistered >= studentsLimit) {
+			throw new ValidationError('The maximum number of students allowed has been reached. You must contact the administrator of the service in order to register');
 		}
 	},
 
 	/**
-	 * Check if in Apollo Server context contains a logged user. If user is not in context, it throws an error
+	 * Check if in Apollo Server context contains a logged student. If student is not in context, it throws an error
 	 * @param {Object} context 			- The context object of Apollo Server
-	 * @param {Object} [context.user]  	- The context object data: user data
+	 * @param {Object} [context.student]  	- The context object data: student data
 	 */
-	ensureThatUserIsLogged: (context) => {
+	ensureThatStudentIsLogged: (context) => {
 		console.log("ok1");
-		console.log("!context.user: ", !context.user);
-		if (!context.user) {
+		console.log("!context.student: ", !context.student);
+		if (!context.student) {
 			throw new AuthenticationError('You must be logged in to perform this action');
 		}
 	},
 
 	/**
-	 * Check if in Apollo Server context contains an user and is an administrator. If user is not in context or user is not an administrator it throws an error
+	 * Check if in Apollo Server context contains an student and is an administrator. If student is not in context or student is not an administrator it throws an error
 	 * @param {Object} context 					- The context object of Apollo Server
-	 * @param {Object} [context.user]  			- The context object data: user data
-	 * @param {boolean} [context.user.isAdmin] 	- The context object data: user data role information
+	 * @param {Object} [context.student]  			- The context object data: student data
+	 * @param {boolean} [context.student.isAdmin] 	- The context object data: student data role information
 	 */
-	ensureThatUserIsAdministrator: (context) => {
-		if (!context.user || !context.user.isAdmin) {
+	ensureThatStudentIsAdministrator: (context) => {
+		if (!context.student || !context.student.isAdmin) {
 			throw new ForbiddenError('You must be an administrator to perform this action');
 		}
 	},
 
 	/**
-	 * Uses the information in the Apollo Server context to retrieve the user's data from the database. If user does not exist, it throws an error.
+	 * Uses the information in the Apollo Server context to retrieve the student's data from the database. If student does not exist, it throws an error.
 	 * @async
 	 * @param {Object} context 				- The context object of Apollo Server
-	 * @param {Object} [context.user]  		- The context object data: user data
-	 * @returns {User}
+	 * @param {Object} [context.student]  		- The context object data: student data
+	 * @returns {Student}
 	 */
-	getUser: async (context) => {
-		if (!context.user) {
+	getStudent: async (context) => {
+		if (!context.student) {
 			return null;
 		}
 	
-		const userUUID = context.user.uuid || null;
-		const user = await models.Users.findOne({ uuid: userUUID });
-		if (!user) {
+		const studentUUID = context.student.uuid || null;
+		const student = await models.Students.findOne({ uuid: studentUUID });
+		if (!student) {
 			console.log("ok2");
 
 			throw new AuthenticationError('You must be logged in to perform this action');
 		}
 
-		return user;
+		return student;
 	},
 };

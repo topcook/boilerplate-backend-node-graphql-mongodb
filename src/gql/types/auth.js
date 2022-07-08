@@ -6,13 +6,13 @@ export default /* GraphQL */ gql`
 	}
 
 	type Mutation {
-		""" It allows users to register """
-		registerUser(email: String!, password: String!, isAdmin: Boolean): Token
+		""" It allows students to register """
+		registerStudent(email: String!, password: String!, isAdmin: Boolean): Token
 
-		""" It allows users to authenticate """
-		authUser(email: String!, password: String!): Token
+		""" It allows students to authenticate """
+		authStudent(email: String!, password: String!): Token
 
-		""" It allows to user to delete their account permanently """
-		deleteMyUserAccount: DeleteResult
+		""" It allows to student to delete their account permanently """
+		deleteMyStudentAccount: DeleteResult
 	}
 `;

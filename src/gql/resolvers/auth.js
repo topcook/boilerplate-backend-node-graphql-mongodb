@@ -12,9 +12,9 @@ export default {
 	},
 	Mutation: {
 		/**
-		 * It allows to users to register as long as the limit of allowed users has not been reached
+		 * It allows to students to register as long as the limit of allowed students has not been reached
 		 */
-		registerUser: async (parent, { email, password, isAdmin }, context) => {
+		registerStudent: async (parent, { email, password, isAdmin }, context) => {
 			if (!email || !password) {
 				throw new UserInputError('Data provided is not valid');
 			}
@@ -27,59 +27,59 @@ export default {
 				throw new UserInputError('The password is not secure enough');
 			}
 
-			const registeredUsersCount = await context.di.model.Users.find().estimatedDocumentCount();
+			const registeredStudentsCount = await context.di.model.Students.find().estimatedDocumentCount();
 
-			context.di.authValidation.ensureLimitOfUsersIsNotReached(registeredUsersCount);
+			context.di.authValidation.ensureLimitOfStudentsIsNotReached(registeredStudentsCount);
 
-			const isAnEmailAlreadyRegistered = await context.di.model.Users.findOne({ email });
+			const isAnEmailAlreadyRegistered = await context.di.model.Students.findOne({ email });
 
 			if (isAnEmailAlreadyRegistered) {
 				throw new UserInputError('Data provided is not valid');
 			}
 
-			await new context.di.model.Users({ email, password, isAdmin }).save();
+			await new context.di.model.Students({ email, password, isAdmin }).save();
 
-			const user = await context.di.model.Users.findOne({ email });
+			const student = await context.di.model.Students.findOne({ email });
 
 			return {
-				token: context.di.jwt.createAuthToken(user.email, user.isAdmin, user.isActive, user.uuid)
+				token: context.di.jwt.createAuthToken(student.email, student.isAdmin, student.isActive, student.uuid)
 			};
 		},
 		/**
-		 * It allows users to authenticate. Users with property isActive with value false are not allowed to authenticate. When an user authenticates the value of lastLogin will be updated
+		 * It allows students to authenticate. Students with property isActive with value false are not allowed to authenticate. When an student authenticates the value of lastLogin will be updated
 		 */
-		authUser: async (parent, { email, password }, context) => {
+		authStudent: async (parent, { email, password }, context) => {
 			if (!email || !password) {
 				throw new UserInputError('Invalid credentials');
 			}
 
-			const user = await context.di.model.Users.findOne({ email, isActive: true });
+			const student = await context.di.model.Students.findOne({ email, isActive: true });
 
-			if (!user) {
-				throw new UserInputError('User not found or login not allowed');
+			if (!student) {
+				throw new UserInputError('Student not found or login not allowed');
 			}
 
-			const isCorrectPassword = await bcrypt.compare(password, user.password);
+			const isCorrectPassword = await bcrypt.compare(password, student.password);
 
 			if (!isCorrectPassword) {
 				throw new UserInputError('Invalid credentials');
 			}
 
-			await context.di.model.Users.findOneAndUpdate({ email }, { lastLogin: new Date().toISOString() }, { new: true });
+			await context.di.model.Students.findOneAndUpdate({ email }, { lastLogin: new Date().toISOString() }, { new: true });
 
 			return {
-				token: context.di.jwt.createAuthToken(user.email, user.isAdmin, user.isActive, user.uuid)
+				token: context.di.jwt.createAuthToken(student.email, student.isAdmin, student.isActive, student.uuid)
 			};
 		},
 		/**
-		 * It allows to user to delete their account permanently (this action does not delete the records associated with the user, it only deletes their user account)
+		 * It allows to student to delete their account permanently (this action does not delete the records associated with the student, it only deletes their student account)
 		 */
-		deleteMyUserAccount:  async (parent, args, context) => {
-			context.di.authValidation.ensureThatUserIsLogged(context);
+		deleteMyStudentAccount:  async (parent, args, context) => {
+			context.di.authValidation.ensureThatStudentIsLogged(context);
 
-			const user = await context.di.authValidation.getUser(context);
+			const student = await context.di.authValidation.getStudent(context);
 
-			return context.di.model.Users.deleteOne({ uuid: user.uuid });
+			return context.di.model.Students.deleteOne({ uuid: student.uuid });
 		}
 	}
 };

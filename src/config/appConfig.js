@@ -16,8 +16,8 @@ import { ENVIRONMENT } from './environment.js';
  * @module appConfig
  */
 
-const serverPortByDefault = 4000;
-const limitOfUsersRegistered = 0; /* Set the value to 0 to not use the limit. Remember put the same value on the enviroment variables */
+const serverPortByDefault = 4001;
+const limitOfStudentsRegistered = 0; /* Set the value to 0 to not use the limit. Remember put the same value on the enviroment variables */
 
 /**
  * Environment variables configuration
@@ -28,7 +28,7 @@ export const environmentVariablesConfig = Object.freeze({
 	mongoDNSseedlist: process.env.MONGO_DNS_SEEDLIST_CONNECTION || '',
 	dbHost: process.env.MONGO_HOST || 'localhost',
 	dbPort: process.env.MONGO_PORT || '27017',
-	database: process.env.MONGO_DB || 'boilerplate_database',
+	database: process.env.MONGO_DB || 'students',
 	mongoUser: process.env.MONGO_USER || '',
 	mongoPass: process.env.MONGO_PASS || '',
 	enviroment: (process.env.ENVIROMENT === ENVIRONMENT.DEVELOPMENT) ? ENVIRONMENT.DEVELOPMENT : ENVIRONMENT.PRODUCTION,
@@ -41,7 +41,7 @@ export const environmentVariablesConfig = Object.freeze({
  */
 export const securityVariablesConfig = Object.freeze({
 	secret: process.env.SECRET || 'yoursecret',
-	timeExpiration: process.env.DURATION || '2h'
+	timeExpiration: process.env.DURATION || '1000h'
 });
 
 /**
@@ -49,5 +49,5 @@ export const securityVariablesConfig = Object.freeze({
  * @typedef {Object}
  */
 export const globalVariablesConfig = Object.freeze({
-	limitOfUsersRegistered: Number(process.env.LIMIT_USERS_REGISTERED) || limitOfUsersRegistered
+	limitOfStudentsRegistered: Number(process.env.LIMIT_STUDENTS_REGISTERED) || limitOfStudentsRegistered
 });

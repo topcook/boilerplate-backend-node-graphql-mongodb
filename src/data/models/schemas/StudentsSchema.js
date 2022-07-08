@@ -5,11 +5,11 @@ import { randomUUID } from 'crypto';
 const Schema = mongoose.Schema;
 
 /**
- * Users schema
- * @constructor Users model constructor
- * @classdesc User have interesting properties. Some of them are isAdmin (false by default), isActive (true by default. Useful for removing login permission to the registered users), uuid (random and unique token. Created to provided a random identifier token for every user different than _id native MongoDB value)
+ * Students schema
+ * @constructor Students model constructor
+ * @classdesc Student have interesting properties. Some of them are isAdmin (false by default), isActive (true by default. Useful for removing login permission to the registered students), uuid (random and unique token. Created to provided a random identifier token for every student different than _id native MongoDB value)
  */
-const UsersSchema = new Schema({
+const StudentsSchema = new Schema({
 	email: {
 		type: String,
 		required: true,
@@ -50,9 +50,9 @@ const UsersSchema = new Schema({
 });
 
 /**
- * Hash the password of user before save on database
+ * Hash the password of student before save on database
  */
-UsersSchema.pre('save', function (next) {
+ StudentsSchema.pre('save', function (next) {
 	if (!this.isModified('password')) {
 		return next();
 	}
@@ -70,4 +70,4 @@ UsersSchema.pre('save', function (next) {
 	});
 });
 
-export { UsersSchema };
+export { StudentsSchema };

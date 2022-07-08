@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-import { UsersSchema } from './schemas/index.js';
+import { StudentsSchema } from './schemas/index.js';
 
 export default {
-	Users: mongoose.model('users', UsersSchema),
+	Students: mongoose.model('students', StudentsSchema),
 };

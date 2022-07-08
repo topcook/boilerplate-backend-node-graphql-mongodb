@@ -31,8 +31,8 @@ export const setContext = async ({ req }) => {
 			if (token.startsWith(authenticationScheme)) {
 				token = token.slice(authenticationScheme.length, token.length);
 			}
-			const user = await validateAuthToken(token);
-			context.user = user; // Add to Apollo Server context the user who is doing the request if auth token is provided and it's a valid token
+			const student = await validateAuthToken(token);
+			context.student = student; // Add to Apollo Server context the student who is doing the request if auth token is provided and it's a valid token
 		} catch (error) {
 			if (environmentVariablesConfig.enviroment !== ENVIRONMENT.PRODUCTION) {
 				logger.debug(error.message);
