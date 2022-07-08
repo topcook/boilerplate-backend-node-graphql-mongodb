@@ -14,7 +14,7 @@ export default {
 		/**
 		 * It allows to users to register as long as the limit of allowed users has not been reached
 		 */
-		registerUser: async (parent, { email, password }, context) => {
+		registerUser: async (parent, { email, password, isAdmin }, context) => {
 			if (!email || !password) {
 				throw new UserInputError('Data provided is not valid');
 			}
@@ -37,7 +37,7 @@ export default {
 				throw new UserInputError('Data provided is not valid');
 			}
 
-			await new context.di.model.Users({ email, password }).save();
+			await new context.di.model.Users({ email, password, isAdmin }).save();
 
 			const user = await context.di.model.Users.findOne({ email });
 

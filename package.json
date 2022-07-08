@@ -3,9 +3,6 @@
   "version": "1.2.20",
   "description": "boilerplate-backend-node-graphql-mongodb",
   "main": "src/server.js",
-  "engines": {
-    "node": "^14.19"
-  },
   "type": "module",
   "scripts": {
     "start": "node .",
@@ -13,8 +10,7 @@
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watchAll",
     "lint": "eslint --ext .js .",
-    "clean": "rimraf logs",
-    "prepare": "husky install"
+    "clean": "rimraf logs"
   },
   "keywords": [
     "boilerplate",
@@ -29,7 +25,6 @@
   "devDependencies": {
     "eslint": "8.15.0",
     "eslint-plugin-no-lenght": "1.0.2-0",
-    "husky": "7.0.4",
     "jest": "27.5.1",
     "jsonfile": "6.1.0",
     "nodemon": "2.0.16",

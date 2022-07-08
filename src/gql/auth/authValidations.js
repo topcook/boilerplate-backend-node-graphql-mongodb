@@ -28,6 +28,8 @@ export const authValidations = {
 	 * @param {Object} [context.user]  	- The context object data: user data
 	 */
 	ensureThatUserIsLogged: (context) => {
+		console.log("ok1");
+		console.log("!context.user: ", !context.user);
 		if (!context.user) {
 			throw new AuthenticationError('You must be logged in to perform this action');
 		}
@@ -60,6 +62,8 @@ export const authValidations = {
 		const userUUID = context.user.uuid || null;
 		const user = await models.Users.findOne({ uuid: userUUID });
 		if (!user) {
+			console.log("ok2");
+
 			throw new AuthenticationError('You must be logged in to perform this action');
 		}
 

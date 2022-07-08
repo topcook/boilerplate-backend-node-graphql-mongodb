@@ -15,35 +15,63 @@
     "rules": {
         "no-lenght/no-lenght": "error",
         "indent": [
-            "error",
-            "tab",
-            { "SwitchCase": 1 }
+            "off"
         ],
         "linebreak-style": [
             "error",
-            "unix"
+            "windows"
         ],
-        "quotes": [
-            "error",
-            "single"
-        ],
+        // "quotes": [
+        //     "error",
+        //     "single"
+        // ],
         "semi": [
             "error",
             "always"
         ],
-        "no-console": "warn",
+        "no-console": "off",
         "no-alert": "warn",
         "no-unused-vars": "warn",
-        "keyword-spacing": ["error", { "before": true, "after": true }],
-        "space-infix-ops": ["error", { "int32Hint": false }],
-        "comma-spacing": ["error"],
-        "arrow-spacing": ["error"],
-        "semi-spacing": ["error"],
-        "space-before-function-paren": ["error"],
+        "keyword-spacing": [
+            "error",
+            {
+                "before": true,
+                "after": true
+            }
+        ],
+        "space-infix-ops": [
+            "error",
+            {
+                "int32Hint": false
+            }
+        ],
+        "comma-spacing": [
+            "error"
+        ],
+        "arrow-spacing": [
+            "error"
+        ],
+        "semi-spacing": [
+            "error"
+        ],
+        "space-before-function-paren": [
+            "error"
+        ],
         "no-multi-spaces": "error",
-        "no-magic-numbers": ["warn", { "ignore": [0], "ignoreArrayIndexes": true }],
+        "no-magic-numbers": [
+            "warn",
+            {
+                "ignore": [
+                    0
+                ],
+                "ignoreArrayIndexes": true
+            }
+        ],
         "valid-typeof": "error",
-        "object-curly-spacing": ["error", "always"],
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
         "curly": "error",
         "no-return-await": "error"
     }

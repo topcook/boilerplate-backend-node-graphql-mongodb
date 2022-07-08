@@ -8,6 +8,7 @@ export default {
 		 * It allows to administrators users to list all users registered
 		 */
 		listAllUsers:  async (parent, args, context) => {
+			console.log("context:  ", context);
 			context.di.authValidation.ensureThatUserIsLogged(context);
 
 			context.di.authValidation.ensureThatUserIsAdministrator(context);

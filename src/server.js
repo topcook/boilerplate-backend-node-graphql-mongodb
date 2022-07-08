@@ -20,28 +20,39 @@ import { getListOfIPV4Address } from './helpers/getListOfIPV4Address.js';
 import routesManager from './routes/routesManager.js';
 
 
-if (environmentVariablesConfig.formatConnection === 'DNSseedlist' && environmentVariablesConfig.mongoDNSseedlist !== '') {
-	mongoose.connect(environmentVariablesConfig.mongoDNSseedlist);
-} else {
-	if (environmentVariablesConfig.mongoUser !== '' && environmentVariablesConfig.mongoPass !== '') {
-		mongoose.connect(`mongodb://${environmentVariablesConfig.mongoUser}:${environmentVariablesConfig.mongoPass}@${environmentVariablesConfig.dbHost}:${environmentVariablesConfig.dbPort}/${environmentVariablesConfig.database}`);
-	} else {
+// if (environmentVariablesConfig.formatConnection === 'DNSseedlist' && environmentVariablesConfig.mongoDNSseedlist !== '') {
+// 	console.log("1");
+// 	mongoose.connect(environmentVariablesConfig.mongoDNSseedlist);
+// } else {
+// 	console.log("2");
+// 	if (environmentVariablesConfig.mongoUser !== '' && environmentVariablesConfig.mongoPass !== '') {
+// 		console.log("21");
+// 		mongoose.connect(`mongodb://${environmentVariablesConfig.mongoUser}:${environmentVariablesConfig.mongoPass}@${environmentVariablesConfig.dbHost}:${environmentVariablesConfig.dbPort}/${environmentVariablesConfig.database}`);
+// 	} else {
+// 		console.log("22");
 		mongoose.connect(`mongodb://${environmentVariablesConfig.dbHost}:${environmentVariablesConfig.dbPort}/${environmentVariablesConfig.database}`);
-	}
-}
+		console.log("3");
+// 	}
+// }
 
+console.log("4");
 const db = mongoose.connection;
 db.on('error', (err) => {
 	logger.error(`Connection error with database. ${err}`);
 });
-
+console.log("5");
 db.once('open', () => {
+	console.log("6");
 	if (environmentVariablesConfig.enviroment !== ENVIRONMENT.DEVELOPMENT) {
+		console.log("7");
 		logger.info(`Connected with MongoDB service (${ENVIRONMENT.PRODUCTION} mode)`);
 	} else {
+		console.log("8");
 		if (environmentVariablesConfig.formatConnection === 'DNSseedlist' && environmentVariablesConfig.mongoDNSseedlist !== '') {
+			console.log("81");
 			logger.info(`Connected with MongoDB service at "${environmentVariablesConfig.mongoDNSseedlist}" using database "${environmentVariablesConfig.database}" (${ENVIRONMENT.DEVELOPMENT} mode)`);
 		} else {
+			console.log("82");
 			logger.info(`Connected with MongoDB service at "${environmentVariablesConfig.dbHost}" in port "${environmentVariablesConfig.dbPort}" using database "${environmentVariablesConfig.database}" (${ENVIRONMENT.DEVELOPMENT} mode)`);
 		}
 	}
@@ -88,6 +99,7 @@ const initApplication = async () => {
 	});
 
 	app.listen(environmentVariablesConfig.port, () => {
+		console.log("request success!!!!");
 		getListOfIPV4Address().forEach(ip => {
 			logger.info(`Application running on: http://${ip}:${environmentVariablesConfig.port}`);
 			if (environmentVariablesConfig.enviroment !== ENVIRONMENT.PRODUCTION) {
