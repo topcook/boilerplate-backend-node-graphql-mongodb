@@ -55,6 +55,7 @@ export const authValidations = {
 	 * @returns {Student}
 	 */
 	getStudent: async (context) => {
+		console.log("getStudent context: ", context);
 		if (!context.student) {
 			return null;
 		}

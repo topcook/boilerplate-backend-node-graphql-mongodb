@@ -7,7 +7,7 @@ export default /* GraphQL */ gql`
 
 	type Mutation {
 		""" It allows students to register """
-		registerStudent(email: String!, password: String!, isAdmin: Boolean): Token
+		registerStudent(id: String!, firstName: String!, lastName: String!, email: String!, password: String!, collegeId: String!): Token
 
 		""" It allows students to authenticate """
 		authStudent(email: String!, password: String!): Token

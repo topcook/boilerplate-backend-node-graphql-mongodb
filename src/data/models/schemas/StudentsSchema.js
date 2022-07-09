@@ -10,6 +10,21 @@ const Schema = mongoose.Schema;
  * @classdesc Student have interesting properties. Some of them are isAdmin (false by default), isActive (true by default. Useful for removing login permission to the registered students), uuid (random and unique token. Created to provided a random identifier token for every student different than _id native MongoDB value)
  */
 const StudentsSchema = new Schema({
+	id: {
+		type: String,
+		required: true,
+		unique: true,
+		trim: true,
+		lowercase: true
+	},
+	firstName: {
+		type: String,
+		required: true
+	},
+	lastName: {
+		type: String,
+		required: true
+	},
 	email: {
 		type: String,
 		required: true,
@@ -21,16 +36,20 @@ const StudentsSchema = new Schema({
 		type: String,
 		required: true
 	},
-	isAdmin: {
-		type: Boolean,
-		required: true,
-		default: false
+	collegeId: {
+		type: String,
+		required: true
 	},
-	isActive: {
-		type: Boolean,
-		required: true,
-		default: true
-	},
+	// isAdmin: {
+	// 	type: Boolean,
+	// 	required: true,
+	// 	default: false
+	// },
+	// isActive: {
+	// 	type: Boolean,
+	// 	required: true,
+	// 	default: true
+	// },
 	uuid: {
 		type: String,
 		required: true,
