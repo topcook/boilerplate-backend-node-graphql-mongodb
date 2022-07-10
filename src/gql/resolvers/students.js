@@ -9,7 +9,8 @@ export default {
 		 */
 		listAllStudents:  async (parent, args, context) => {
 			console.log("listAllStudents context:  ", context);
-			context.di.authValidation.listAllStudents(context);
+			// context.di.authValidation.ensureThatStudentIsLogged(context);
+			console.log("after context");
 
 			// context.di.authValidation.ensureThatStudentIsAdministrator(context);
 
